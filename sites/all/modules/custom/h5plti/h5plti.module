@@ -4,3 +4,18 @@
  * H5PLTI custom module.
  */
 
+/**
+ * Implements hook_form_alter().
+ */
+function h5plti_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'user_login_block') {
+    $form['name']['#attributes'] = array(
+      'placeholder' => t('Username'),
+    );
+    $form['pass']['#attributes'] = array(
+      'placeholder' => t('Password'),
+    );
+    
+    unset($form['links']);
+  }
+}

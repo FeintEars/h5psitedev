@@ -3,10 +3,13 @@ description = H5P + LTI project
 package = Custom
 core = 7.x
 
+stylesheets[all][] = css/styleguide.css
 stylesheets[all][] = css/style.css
+
 scripts[] = js/script.js
 
 regions[header] = Header
 regions[help] = Help
+regions[front_content] = Front Content
 regions[content] = Content
 regions[footer] = Footer
