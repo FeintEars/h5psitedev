@@ -1,0 +1,4 @@
+name = H5PLTI
+description = The general custom module
+package = Custom
+core = 7.x
