@@ -1,8 +1,17 @@
 <?php
 
 /**
- * H5PLTI custom module.
+ * H5PLTI General module.
  */
+
+/**
+ * Implements hook_page_build().
+ */
+function h5plti_page_build(&$page) {
+  if (drupal_is_front_page()) {
+    drupal_set_title(t('H5P Videos'));
+  }
+}
 
 /**
  * Implements hook_form_alter().

@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * H5PLTI Content.
+ */
+
+define('H5P_VIDEO_TEMPLATE_NID', 3);
+
+/**
+ * Implements hook_views_api().
+ */
+function h5plti_content_views_api($module = NULL, $api = NULL) {
+  return array("api" => "3.0");
+}
+
+/**
+ * Implements hook_views_pre_render().
+ */
+function h5plti_content_views_pre_render(&$view) {
+  if ($view->name == 'h5p_videos') {
+    // Stylize the table.
+    $path = drupal_get_path('module', 'h5plti_content');
+    drupal_add_css($path . '/css/h5p_videos.css');
+  }
+}
+
+/**
+ * Implements hook_views_query_alter().
+ */
+function h5plti_content_views_query_alter(&$view, &$query) {
+  if ($view->name == 'h5p_videos') {
+    // Exclude the template from results.
+    foreach ($view->query->where as $key1 => $value1) {
+      foreach ($value1['conditions'] as $key2 => $value2) {
+        if ($value2['field'] == 'h5p_nodes.content_id' && $value2['value'] == 0) {
+          $view->query->where[$key1]['conditions'][$key2]['value'] = H5P_VIDEO_TEMPLATE_NID;
+        }
+      }
+    }
+  }
+}

@@ -1,1 +1,1 @@
-H5P + LTI project
+H5PLTI General Custom Module

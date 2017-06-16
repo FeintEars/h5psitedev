@@ -1,11 +1,19 @@
 /**
  * FrontPage.
  */
-body.front {
-  /*text-align: center;*/
-}
-
-body.front .region-content, body.front .region-front-content {
+body.front .region-front-content {
   width: 300px;
   margin: 0px auto;
+}
+
+body.front .title, body.front #header {
+  text-align: center;
+}
+
+body.front #block-user-login h2 {
+  display: none;
+}
+
+body.front input[type="submit"] {
+  margin: 20px 20px 20px 10px;
 }
