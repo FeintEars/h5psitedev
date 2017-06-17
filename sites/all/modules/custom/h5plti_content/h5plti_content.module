@@ -83,20 +83,12 @@ function h5plti_content_menu() {
     'title' => 'Add H5P video',
     'description' => 'Adding the interactive content with h5p video',
     'type' => MENU_NORMAL_ITEM,
-    'page callback' => 'h5plti_h5p_add',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('h5plti_h5p_add_form'),
     'access arguments' => array('add h5p video'),
   );
 
   return $items;
-}
-
-/**
- * Page calback for h5p/add.
- */
-function h5plti_h5p_add() {
-  $form = drupal_get_form('h5plti_h5p_add_form');
-  $form_content = drupal_render($form);
-  return $form_content;
 }
 
 /**
@@ -115,7 +107,7 @@ function h5plti_h5p_add_form($form, &$form_state) {
   $form = drupal_build_form('h5p_content_node_form', $form_state);
   unset($form['title']['#value']);
   if (!$already_exists) {
-    $form['title']['#default_value'] = '';
+    // $form['title']['#default_value'] = '';
   }
   unset($form['json_content']['#value']);
   $form['additional_settings']['#access'] = FALSE;
@@ -154,6 +146,8 @@ function hp5lti_h5p_get_video_template() {
   if ($nid = $user_wrapper->field_h5p_video_template_nid->value()) {
     $node = node_load($nid);
     if ($node) {
+      $node->revision = FALSE;
+      $node->menu = FALSE;
       return $node;
     }
   }
@@ -161,13 +155,13 @@ function hp5lti_h5p_get_video_template() {
   // Duplicate a new template for this user.
   $node = node_load(H5P_VIDEO_TEMPLATE_NID);
   $node->is_new = TRUE;
-  $node->revision = FALSE;
-  $node->menu = FALSE;
   $node->title = t('New H5P video');
   unset($node->nid);
   unset($node->vid);
   $node->uid = $user->uid;
   node_save($node);
+  $node->revision = FALSE;
+  $node->menu = FALSE;
   $user_wrapper->field_h5p_video_template_nid->set($node->nid);
   $user_wrapper->save();
 
