@@ -147,13 +147,19 @@ input[type="text"]:focus, input[type="password"]:focus {
   color: #6c7b7f;
 }
 
-input[type="submit"] {
-  margin: 20px;
+input[type="submit"], a.standard-btn {
+  display: inline-block;
+  margin: 20px 20px 20px 0px;
   padding: 5px 30px;
   background-color: #31b8da;
   color: #fff;
   font-weight: bold;
   font-size: 18px;
   border: none;
+  border-radius: 2px;
   cursor: pointer;
+}
+
+input[type="submit"]:hover, a.standard-btn:hover {
+  opacity: 0.9;
 }

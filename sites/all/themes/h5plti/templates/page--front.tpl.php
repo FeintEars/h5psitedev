@@ -28,7 +28,7 @@
         <?php print $messages; ?>
         <?php print render($page['help']); ?>
         <?php if ($action_links): ?><ul class="action-links"><?php print render($action_links); ?></ul><?php endif; ?>
-        <?php if ($user->uid || arg(0) == 'user'): ?>
+        <?php if ($user->uid): ?>
           <?php print render($page['content']); ?>
         <?php else: ?>
           <?php print render($page['front_content']); ?>

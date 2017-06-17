@@ -1,13 +1,26 @@
 /**
- * FrontPage.
+ * General styles.
  */
-body.front .region-front-content {
-  width: 300px;
-  margin: 0px auto;
+
+.title, #header {
+  text-align: center;
 }
 
-body.front .title, body.front #header {
-  text-align: center;
+a#logo:hover {
+  border-bottom: none;
+}
+
+.content {
+  padding: 0px 25px;
+}
+
+/**
+ * FrontPage.
+ */
+
+body.front .region-front-content {
+  width: 350px;
+  margin: 0px auto;
 }
 
 body.front #block-user-login h2 {
