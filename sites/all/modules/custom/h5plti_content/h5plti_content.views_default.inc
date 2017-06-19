@@ -43,13 +43,20 @@ function h5plti_content_views_default_views() {
       'empty_column' => 0,
     ),
   );
+  /* Header: Global: Text area */
+  $handler->display->display_options['header']['area']['id'] = 'area';
+  $handler->display->display_options['header']['area']['table'] = 'views';
+  $handler->display->display_options['header']['area']['field'] = 'area';
+  $handler->display->display_options['header']['area']['content'] = '<a href="/h5p-video/add" class="standard-btn">Add h5p video</a>';
+  $handler->display->display_options['header']['area']['format'] = 'full_html';
   /* No results behavior: Global: Text area */
   $handler->display->display_options['empty']['area']['id'] = 'area';
   $handler->display->display_options['empty']['area']['table'] = 'views';
   $handler->display->display_options['empty']['area']['field'] = 'area';
   $handler->display->display_options['empty']['area']['label'] = 'Empty text';
   $handler->display->display_options['empty']['area']['empty'] = TRUE;
-  $handler->display->display_options['empty']['area']['format'] = 'filtered_html';
+  $handler->display->display_options['empty']['area']['content'] = '<a href="/h5p-video/add" class="standard-btn">Add h5p video</a>';
+  $handler->display->display_options['empty']['area']['format'] = 'full_html';
   /* Field: Content: Nid */
   $handler->display->display_options['fields']['nid']['id'] = 'nid';
   $handler->display->display_options['fields']['nid']['table'] = 'node';
@@ -74,6 +81,20 @@ function h5plti_content_views_default_views() {
   $handler->display->display_options['fields']['title']['node_in_colorbox_width'] = '600';
   $handler->display->display_options['fields']['title']['node_in_colorbox_height'] = '600';
   $handler->display->display_options['fields']['title']['node_in_colorbox_rel'] = '';
+  /* Field: Global: Custom text */
+  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['table'] = 'views';
+  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['label'] = '';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/h5p-video/[nid]/edit" class="fa-btn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>';
+  $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
+  /* Field: Global: Custom text */
+  $handler->display->display_options['fields']['nothing_1']['id'] = 'nothing_1';
+  $handler->display->display_options['fields']['nothing_1']['table'] = 'views';
+  $handler->display->display_options['fields']['nothing_1']['field'] = 'nothing';
+  $handler->display->display_options['fields']['nothing_1']['label'] = '';
+  $handler->display->display_options['fields']['nothing_1']['alter']['text'] = '<a href="/h5p-video/[nid]/del" class="fa-btn"><i class="fa fa-trash-o" aria-hidden="true"></i></a>';
+  $handler->display->display_options['fields']['nothing_1']['element_label_colon'] = FALSE;
   /* Sort criterion: Content: Updated date */
   $handler->display->display_options['sorts']['changed']['id'] = 'changed';
   $handler->display->display_options['sorts']['changed']['table'] = 'node';

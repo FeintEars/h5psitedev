@@ -60,9 +60,19 @@ function h5plti_content_permission() {
     'description' => t('Adding the interactive content with h5p video'),
   );
 
+  $items['edit h5p videos'] = array(
+    'title' => t('Edit H5P videos'),
+    'description' => t('Edit any h5p video'),
+  );
+
   $items['edit my own h5p videos'] = array(
     'title' => t('Edit my own h5p videos'),
     'description' => t(''),
+  );
+
+  $items['del h5p videos'] = array(
+    'title' => t('Del H5P videos'),
+    'description' => t('Delete any h5p video'),
   );
 
   $items['del my own h5p videos'] = array(
@@ -92,6 +102,65 @@ function h5plti_content_menu() {
     'file path' => $path,
   );
 
+  $items['h5p-video/%/edit'] = array(
+    'title' => 'Edit H5P video',
+    'description' => 'Editing the interactive h5p video',
+    'type' => MENU_NORMAL_ITEM,
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('h5plti_h5p_edit_form', 1),
+    'access callback' => 'h5plti_content_menu_access_edit',
+    'access arguments' => array(1),
+    'file' => 'h5plti_content.edit_form.inc',
+    'file path' => $path,
+  );
+
+  $items['h5p-video/%/del'] = array(
+    'title' => 'Delete H5P video',
+    'description' => 'Deleting the interactive h5p video',
+    'type' => MENU_NORMAL_ITEM,
+    'page callback' => 'h5plti_h5p_del',
+    'page arguments' => array(1),
+    'access callback' => 'h5plti_content_menu_access_del',
+    'access arguments' => array(1),
+    'file' => 'h5plti_content.del.inc',
+    'file path' => $path,
+  );
+
   return $items;
 }
 
+/**
+ * Edit access callback.
+ */
+function h5plti_content_menu_access_edit($nid) {
+  global $user;
+  $user_wrapper = entity_metadata_wrapper('user', $user);
+
+  if (user_access('edit h5p videos')) {
+    return TRUE;
+  }
+  else if ($user_wrapper->field_h5p_video_template_nid->value() == $nid &&
+      user_access('edit my own h5p videos')) {
+    return TRUE;
+  }
+
+  return FALSE;
+}
+
+/**
+ * Delete access callback.
+ */
+function h5plti_content_menu_access_del($nid) {
+  global $user;
+  $user_wrapper = entity_metadata_wrapper('user', $user);
+
+  if (user_access('del h5p videos')) {
+    return TRUE;
+  }
+  else if ($user_wrapper->field_h5p_video_template_nid->value() == $nid &&
+      user_access('del my own h5p videos')) {
+    return TRUE;
+  }
+
+  return FALSE;
+}

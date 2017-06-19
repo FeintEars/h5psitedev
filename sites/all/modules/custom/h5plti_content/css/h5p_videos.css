@@ -1,0 +1,37 @@
+.view-h5p-videos {
+  width: 290px;
+  margin: 0px auto;
+}
+
+@media (min-width: 700px) {
+  .view-h5p-videos {
+    width: 390px;
+  }
+}
+
+.view-h5p-videos .view-header, .view-h5p-videos .view-empty {
+  text-align: center;
+}
+
+.view-h5p-videos .view-header a.standard-btn,
+.view-h5p-videos .view-empty a.standard-btn {
+  margin-left: 20px;
+}
+
+.view-h5p-videos table tr {
+  background-color: transparent;
+}
+
+.view-h5p-videos table td {
+  padding: 10px;
+}
+
+.view-h5p-videos table td.views-field-title {
+  min-width: 200px;
+}
+
+@media (min-width: 700px) {
+  .view-h5p-videos table td.views-field-title {
+    min-width: 300px;
+  }
+}
