@@ -30,11 +30,11 @@ function h5plti_embed_page_callback($nid) {
   // Check the nid.
   $node = node_load($nid);
   if ($node === FALSE) {
-    drupal_not_found();
+    print t('The video is not found.');
     drupal_exit();
   }
   else if ($node->type != 'h5p_content') {
-    drupal_not_found();
+    print t('The video is not found.');
     drupal_exit();
   }
 
@@ -48,8 +48,6 @@ function h5plti_embed_page_callback($nid) {
 
   // Prepare the page for lti.
   print_r($consumer);
-  print_r($_REQUEST);
-  print $nid;
   drupal_exit();
 }
 
@@ -62,7 +60,7 @@ function h5plti_embed_perm() {
 }
 
 /**
- * Just check the lti connection.
+ * Check OAuth credentials from LTI request.
  */
 function h5plti_embed_authorization() {
   module_load_include('inc', 'lti_tool_provider', 'lti_tool_provider.operations');
@@ -90,7 +88,7 @@ function h5plti_embed_authorization() {
     $server->verify_request($request);
     // This is a LTI launch request.
   } catch (Exception $e) {
-    return t('Error: Invalid context, OAuth failure.');
+    return t('Check the key and secret.');
   }
   $consumer = lti_tool_provider_get_consumer_by_key($oauth_consumer_key);
   return $consumer;
