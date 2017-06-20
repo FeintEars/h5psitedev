@@ -1,0 +1,52 @@
+<?php
+
+/**
+ * H5PLTI Embed.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function h5plti_embed_menu() {
+  $items = array();
+
+  $items['h5p-video/%/lti'] = array(
+    'title' => 'LTI H5P video',
+    'description' => 'H5P video embed into lti',
+    'type' => MENU_NORMAL_ITEM,
+    'page callback' => 'h5plti_embed_page_callback',
+    'page arguments' => array(1),
+    'access callback' => 'h5plti_embed_perm',
+    'access arguments' => array(),
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_page_build().
+ */
+function h5plti_embed_page_build(&$page) {
+  module_load_include('inc', 'lti_tool_provider', 'lti_tool_provider.operations');
+  if (lti_tool_provider_is_basic_lti_request()) {
+    dsm($page);
+  }
+}
+
+/**
+ * The callback for for h5p-video/%/lti page.
+ */
+function h5plti_embed_page_callback($nid) {
+  module_load_include('inc', 'lti_tool_provider', 'lti_tool_provider.operations');
+  lti_tool_provider_launch();
+
+  return $nid;
+}
+
+/**
+ * Access callback for h5p-video/%/lti page.
+ */
+function h5plti_embed_perm() {
+  // Always allow to get h5p-video/%/lti page.
+  return TRUE;
+}

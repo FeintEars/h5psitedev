@@ -3,6 +3,7 @@ description = Allows to manage h5p videos
 package = Custom
 core = 7.x
 
+dependencies[] = h5plti
 dependencies[] = views
 dependencies[] = entity
 dependencies[] = colorbox

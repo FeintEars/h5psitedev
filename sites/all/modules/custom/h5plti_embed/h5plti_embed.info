@@ -1,0 +1,7 @@
+name = H5PLTI Embed
+description = Allows to embed h5p videos into lti
+package = Custom
+core = 7.x
+
+dependencies[] = h5plti
+dependencies[] = lti_tool_provider
