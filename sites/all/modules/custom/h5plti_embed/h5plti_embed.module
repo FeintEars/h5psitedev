@@ -70,13 +70,11 @@ function h5plti_embed_authorization() {
   global $user;
   // If not an LTI launch request, then ignore.
   if (!lti_tool_provider_is_basic_lti_request()) {
-    drupal_set_message(t('Not a LTI request.'), 'info');
     return t('Error: Not a LTI request.');
   }
   // Insure we have a valid context.
   if (empty($_REQUEST['oauth_consumer_key'])) {
     unset($_SESSION['lti_tool_provider_context_info']);
-    drupal_set_message(t('Not a valid LTI context.'), 'info');
     return t('Error: Invalid context. Missing oauth_consumer_key in request.');
   }
   // Begin a new session based on this LTI launch request.
@@ -92,7 +90,6 @@ function h5plti_embed_authorization() {
     $server->verify_request($request);
     // This is a LTI launch request.
   } catch (Exception $e) {
-    drupal_set_message(check_plain($e->getMessage()), 'error');
     return t('Error: Invalid context, OAuth failure.');
   }
   $consumer = lti_tool_provider_get_consumer_by_key($oauth_consumer_key);
