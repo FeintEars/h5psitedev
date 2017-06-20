@@ -42,7 +42,7 @@ function h5plti_embed_page_callback($nid) {
   $consumer = h5plti_embed_authorization();
   if (is_string($consumer)) {
     // Return the simple empty page with errors.
-    print $consuer;
+    print $consumer;
     drupal_exit();
   }
 
