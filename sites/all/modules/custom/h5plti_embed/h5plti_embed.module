@@ -179,7 +179,7 @@ function h5plti_embed_page_build(&$page) {
   $allows = array('lti', 'h5p-video/%/lti');
 
   module_load_include('inc', 'lti_tool_provider', 'lti_tool_provider.operations');
-  if (TRUE || lti_tool_provider_is_basic_lti_request()) {
+  if (lti_tool_provider_is_basic_lti_request()) {
     $path = current_path();
     $path = explode('/', $path);
     $ancestors = menu_get_ancestors($path);
