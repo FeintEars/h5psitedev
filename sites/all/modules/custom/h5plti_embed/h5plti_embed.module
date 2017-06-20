@@ -77,7 +77,7 @@ function h5plti_embed_authorization() {
   }
   // Begin a new session based on this LTI launch request.
   drupal_session_start();
-  $oauth_consumer_key = $_REQUEST["oauth_consumer_key"];
+  $oauth_consumer_key = $_REQUEST['oauth_consumer_key'];
   // Verify the message signature.
   $store = new LTIToolProviderOAuthDataStore();
   $server = new OAuthServer($store);
@@ -92,4 +92,24 @@ function h5plti_embed_authorization() {
   }
   $consumer = lti_tool_provider_get_consumer_by_key($oauth_consumer_key);
   return $consumer;
+}
+
+/**
+ * Implements hook_init().
+ */
+function h5plti_embed_init() {
+  // Block al the rest lti requests.
+  $allows = array('h5p-video/%/lti');
+
+  module_load_include('inc', 'lti_tool_provider', 'lti_tool_provider.operations');
+  if (lti_tool_provider_is_basic_lti_request()) {
+    $path = current_path();
+    $path = explode('/', $path);
+    $ancestors = menu_get_ancestors($path);
+    $intersect = array_intersect($allows, $ancestors);
+    if (empty($intersect)) {
+      print t('The video is not found.');
+      drupal_exit();
+    }
+  }
 }
