@@ -174,12 +174,12 @@ function h5plti_embed_authorization() {
 /**
  * Implements hook_page_build().
  */
-function h5plti_embed_page_build(&$page) {
+function h5plti_embed_init() {
   // Block all the rest LTI requests.
   $allows = array('lti', 'h5p-video/%/lti');
 
   module_load_include('inc', 'lti_tool_provider', 'lti_tool_provider.operations');
-  if (lti_tool_provider_is_basic_lti_request()) {
+  if (TRUE || lti_tool_provider_is_basic_lti_request()) {
     $path = current_path();
     $path = explode('/', $path);
     $ancestors = menu_get_ancestors($path);
@@ -187,6 +187,7 @@ function h5plti_embed_page_build(&$page) {
     $interselect = array_intersect($allows, $ancestors);
     if (empty($interselect)) {
       drupal_not_found();
+      drupal_exit();
     }
   }
 }
