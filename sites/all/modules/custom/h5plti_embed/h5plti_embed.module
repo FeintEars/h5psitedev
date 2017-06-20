@@ -186,7 +186,7 @@ function h5plti_embed_init() {
 
     $interselect = array_intersect($allows, $ancestors);
     if (empty($interselect)) {
-      drupal_not_found();
+      // drupal_not_found();
       drupal_exit();
     }
   }
