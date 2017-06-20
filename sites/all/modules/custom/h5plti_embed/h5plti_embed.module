@@ -162,5 +162,31 @@ function h5plti_embed_authorization() {
     $account = user_load($user->uid);
   }
 
+  // If no errors - logout user anyway.
+  if (!is_string($account)) {
+    module_load_include('pages.inc', 'user');
+    user_logout();
+  }
+
   return $account;
+}
+
+/**
+ * Implements hook_page_build().
+ */
+function h5plti_embed_page_build(&$page) {
+  // Block all the rest LTI requests.
+  $allows = array('lti', 'h5p-video/%/lti');
+
+  module_load_include('inc', 'lti_tool_provider', 'lti_tool_provider.operations');
+  if (TRUE || lti_tool_provider_is_basic_lti_request()) {
+    $path = current_path();
+    $path = explode('/', $path);
+    $ancestors = menu_get_ancestors($path);
+
+    $interselect = array_intersect($allows, $ancestors);
+    if (empty($interselect)) {
+      drupal_not_found();
+    }
+  }
 }
