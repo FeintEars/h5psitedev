@@ -27,6 +27,7 @@ function h5plti_embed_menu() {
  * The callback for for h5p-video/%/lti page.
  */
 function h5plti_embed_page_callback($nid) {
+  // Check the nid.
   $node = node_load($nid);
   if ($node === FALSE) {
     drupal_not_found();
@@ -37,14 +38,17 @@ function h5plti_embed_page_callback($nid) {
     drupal_exit();
   }
 
+  // Check the authorization.
   $account = h5plti_embed_authorization();
-  module_load_include('inc', 'lti_tool_provider', 'lti_tool_provider.operations');
-  if (lti_tool_provider_is_basic_lti_request()) {
-    print $nid;
-    drupal_exit();
+  if (is_string($account)) {
+    // Return the simple empty page with errors.
+    return '';
   }
 
-  return '';
+  // Prepare the page for lti.
+  print_r($_REQUEST);
+  print $nid;
+  drupal_exit();
 }
 
 /**
