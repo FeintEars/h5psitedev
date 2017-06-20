@@ -24,21 +24,27 @@ function h5plti_embed_menu() {
 }
 
 /**
- * Implements hook_page_build().
- */
-function h5plti_embed_page_build(&$page) {
-  module_load_include('inc', 'lti_tool_provider', 'lti_tool_provider.operations');
-  if (lti_tool_provider_is_basic_lti_request()) {
-    dsm($page);
-  }
-}
-
-/**
  * The callback for for h5p-video/%/lti page.
  */
 function h5plti_embed_page_callback($nid) {
+  $node = node_load($nid);
+  if ($node === FALSE) {
+    drupal_not_found();
+    drupal_exit();
+  }
+  else if ($node->type != 'h5p_content') {
+    drupal_not_found();
+    drupal_exit();
+  }
+
   $account = h5plti_embed_authorization();
-  return $nid;
+  module_load_include('inc', 'lti_tool_provider', 'lti_tool_provider.operations');
+  if (lti_tool_provider_is_basic_lti_request()) {
+    print $nid;
+    drupal_exit();
+  }
+
+  return '';
 }
 
 /**
