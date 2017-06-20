@@ -40,7 +40,7 @@ function h5plti_embed_page_callback($nid) {
 
   
   // Check the authorization.
-  $consumer = h5plti_embed_check_lti();
+  $consumer = h5plti_embed_authorization();
   if (is_string($consumer)) {
     // Return the simple empty page with errors.
     return '';
