@@ -31,6 +31,7 @@ function h5plti_h5p_edit_form($form, &$form_state, $nid) {
   $form['author']['#access'] = FALSE;
   $form['options']['#access'] = FALSE;
   $form['field_h5p_video_only']['#access'] = FALSE;
+  $form['field_lti_allowed_keys']['#access'] = FALSE;
   unset($form['actions']['preview']);
   unset($form['actions']['delete']);
   $form['actions']['submit']['#submit'][] = '_h5p_form_submit';

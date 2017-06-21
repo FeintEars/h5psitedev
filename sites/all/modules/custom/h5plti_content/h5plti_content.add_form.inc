@@ -28,6 +28,7 @@ function h5plti_h5p_add_form($form, &$form_state) {
   $form['author']['#access'] = FALSE;
   $form['options']['#access'] = FALSE;
   $form['field_h5p_video_only']['#access'] = FALSE;
+  $form['field_lti_allowed_keys']['#access'] = FALSE;
   $form['actions']['submit']['#value'] = t('Add');
   unset($form['actions']['preview']);
   unset($form['actions']['delete']);
