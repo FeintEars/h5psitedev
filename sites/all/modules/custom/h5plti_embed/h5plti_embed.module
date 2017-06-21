@@ -29,7 +29,7 @@ function h5plti_embed_menu() {
 function h5plti_embed_page_callback($nid) {
   // Check the nid.
   $node = node_load($nid);
-  
+
   if ($node === FALSE) {
     print t('The video is not found.');
     drupal_exit();
@@ -56,7 +56,7 @@ function h5plti_embed_page_callback($nid) {
   }
 
   // Prepare the page for lti.
-  print_r($consumer);
+  h5p_embed($nid);
   drupal_exit();
 }
 
