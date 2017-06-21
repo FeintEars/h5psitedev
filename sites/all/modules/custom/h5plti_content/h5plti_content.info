@@ -4,6 +4,7 @@ package = Custom
 core = 7.x
 
 dependencies[] = h5plti
+dependencies[] = h5plti_embed
 dependencies[] = views
 dependencies[] = entity
 dependencies[] = colorbox
