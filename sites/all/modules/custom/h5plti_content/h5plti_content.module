@@ -114,6 +114,18 @@ function h5plti_content_menu() {
     'file path' => $path,
   );
 
+  $items['h5p-video/%/credentials'] = array(
+    'title' => 'LTI credentials for H5P video',
+    'description' => 'Get the lti credentials for interactive h5p video',
+    'type' => MENU_NORMAL_ITEM,
+    'page callback' => 'h5plti_h5p_credentials',
+    'page arguments' => array(1),
+    'access callback' => 'h5plti_content_menu_access_edit',
+    'access arguments' => array(1),
+    'file' => 'h5plti_content.credentials.inc',
+    'file path' => $path,
+  );
+
   $items['h5p-video/%/del'] = array(
     'title' => 'Delete H5P video',
     'description' => 'Deleting the interactive h5p video',
@@ -122,7 +134,7 @@ function h5plti_content_menu() {
     'page arguments' => array(1),
     'access callback' => 'h5plti_content_menu_access_del',
     'access arguments' => array(1),
-    'file' => 'h5plti_content.del.inc',
+    'file' => 'h5plti_content.edit_form.inc',
     'file path' => $path,
   );
 
@@ -163,4 +175,19 @@ function h5plti_content_menu_access_del($nid) {
   }
 
   return FALSE;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function h5plti_content_theme() {
+  $items = array();
+
+  $items['h5plti_credentials'] = array(
+    'variables' => array('url' => NULL, 'key' => NULL, 'secret' => NULL),
+    'template' => 'credentials',
+    'path' => drupal_get_path('module', 'h5plti_content') . '/templates',
+  );
+
+  return $items;
 }

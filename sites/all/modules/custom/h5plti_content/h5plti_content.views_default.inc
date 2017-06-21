@@ -86,15 +86,22 @@ function h5plti_content_views_default_views() {
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['label'] = '';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/h5p-video/[nid]/edit" class="fa-btn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/h5p-video/[nid]/credentials?width=400&height=120&iframe=true" class="colorbox-load" class="fa-btn"><i class="fa fa-key" aria-hidden="true"></i></a>';
   $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
   /* Field: Global: Custom text */
   $handler->display->display_options['fields']['nothing_1']['id'] = 'nothing_1';
   $handler->display->display_options['fields']['nothing_1']['table'] = 'views';
   $handler->display->display_options['fields']['nothing_1']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing_1']['label'] = '';
-  $handler->display->display_options['fields']['nothing_1']['alter']['text'] = '<a href="/h5p-video/[nid]/del" class="fa-btn"><i class="fa fa-trash-o" aria-hidden="true"></i></a>';
+  $handler->display->display_options['fields']['nothing_1']['alter']['text'] = '<a href="/h5p-video/[nid]/edit" class="fa-btn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>';
   $handler->display->display_options['fields']['nothing_1']['element_label_colon'] = FALSE;
+  /* Field: Global: Custom text */
+  $handler->display->display_options['fields']['nothing_2']['id'] = 'nothing_2';
+  $handler->display->display_options['fields']['nothing_2']['table'] = 'views';
+  $handler->display->display_options['fields']['nothing_2']['field'] = 'nothing';
+  $handler->display->display_options['fields']['nothing_2']['label'] = '';
+  $handler->display->display_options['fields']['nothing_2']['alter']['text'] = '<a href="/h5p-video/[nid]/del" class="fa-btn"><i class="fa fa-trash-o" aria-hidden="true"></i></a>';
+  $handler->display->display_options['fields']['nothing_2']['element_label_colon'] = FALSE;
   /* Sort criterion: Content: Updated date */
   $handler->display->display_options['sorts']['changed']['id'] = 'changed';
   $handler->display->display_options['sorts']['changed']['table'] = 'node';

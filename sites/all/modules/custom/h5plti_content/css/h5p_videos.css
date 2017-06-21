@@ -1,11 +1,11 @@
 .view-h5p-videos {
-  width: 290px;
+  width: 310px;
   margin: 0px auto;
 }
 
 @media (min-width: 700px) {
   .view-h5p-videos {
-    width: 390px;
+    width: 430px;
   }
 }
 
@@ -27,7 +27,7 @@
 }
 
 .view-h5p-videos table td.views-field-title {
-  min-width: 200px;
+  min-width: 165px;
 }
 
 @media (min-width: 700px) {
