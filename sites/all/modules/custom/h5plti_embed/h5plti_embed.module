@@ -33,10 +33,12 @@ function h5plti_embed_page_callback($nid) {
   $node = node_load($nid);
 
   if ($node === FALSE) {
+    watchdog('h5plti_embed', 'The video is not found.');
     print t('The video is not found.');
     drupal_exit();
   }
   else if ($node->type != 'h5p_content') {
+    watchdog('h5plti_embed', 'The video is not found.');
     print t('The video is not found.');
     drupal_exit();
   }
@@ -45,6 +47,7 @@ function h5plti_embed_page_callback($nid) {
   $consumer = h5plti_embed_authorization();
   if (is_string($consumer)) {
     // Return the simple empty page with errors.
+    watchdog('h5plti_embed', $consumer);
     print $consumer;
     drupal_exit();
   }
@@ -53,13 +56,37 @@ function h5plti_embed_page_callback($nid) {
   $node_wrapper = entity_metadata_wrapper('node', $node);
   $allowed_keys = $node_wrapper->field_lti_allowed_keys->value();
   if (!in_array($consumer->lti_tool_provider_consumer_key, $allowed_keys)) {
+    h5plti_embed_watchdog_decline($nid, $consumer->lti_tool_provider_consumer_key, $consumer->lti_tool_provider_consumer_secret);
     print t('Check the key and secret.');
     drupal_exit();
   }
 
   // Prepare the page for lti.
+  h5plti_embed_watchdog_accept($nid, $consumer->lti_tool_provider_consumer_key, $consumer->lti_tool_provider_consumer_secret);
   h5p_embed($nid);
   drupal_exit();
+}
+
+/**
+ * Watchdog: accepted view.
+ */
+function h5plti_embed_watchdog_accept($nid, $key, $secret) {
+  watchdog('h5plti embed', t('Accepted embed lti: nid=!nid, key=!key, secret=!secret', array(
+    '!nid' => $nid,
+    '!key' => $key,
+    '!secret' => $secret,
+  )));
+}
+
+/**
+ * Watchdog: declined view (error).
+ */
+function h5plti_embed_watchdog_decline($nid, $key, $secret) {
+  watchdog('h5plti embed', t('Declined embed lti: nid=!nid, key=!key, secret=!secret', array(
+    '!nid' => $nid,
+    '!key' => $key,
+    '!secret' => $secret,
+  )));
 }
 
 /**
