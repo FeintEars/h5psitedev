@@ -73,6 +73,8 @@ function hp5lti_h5p_get_video_template() {
   unset($node->nid);
   unset($node->vid);
   $node->uid = $user->uid;
+  $node->revision_uid = $user->uid;
+  $node->name = $user->name;
   node_save($node);
   $node->revision = FALSE;
   $node->menu = FALSE;

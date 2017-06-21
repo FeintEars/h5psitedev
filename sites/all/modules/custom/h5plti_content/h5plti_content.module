@@ -134,7 +134,7 @@ function h5plti_content_menu() {
     'page arguments' => array(1),
     'access callback' => 'h5plti_content_menu_access_del',
     'access arguments' => array(1),
-    'file' => 'h5plti_content.edit_form.inc',
+    'file' => 'h5plti_content.del.inc',
     'file path' => $path,
   );
 
@@ -146,12 +146,12 @@ function h5plti_content_menu() {
  */
 function h5plti_content_menu_access_edit($nid) {
   global $user;
-  $user_wrapper = entity_metadata_wrapper('user', $user);
+  $node = node_load($nid);
 
   if (user_access('edit h5p videos')) {
     return TRUE;
   }
-  else if ($user_wrapper->field_h5p_video_template_nid->value() == $nid &&
+  else if ($node->uid == $user->uid &&
       user_access('edit my own h5p videos')) {
     return TRUE;
   }
@@ -164,12 +164,12 @@ function h5plti_content_menu_access_edit($nid) {
  */
 function h5plti_content_menu_access_del($nid) {
   global $user;
-  $user_wrapper = entity_metadata_wrapper('user', $user);
+  $node = node_load($nid);
 
   if (user_access('del h5p videos')) {
     return TRUE;
   }
-  else if ($user_wrapper->field_h5p_video_template_nid->value() == $nid &&
+  else if ($node->uid == $user->uid &&
       user_access('del my own h5p videos')) {
     return TRUE;
   }
