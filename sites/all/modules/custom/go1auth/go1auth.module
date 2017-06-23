@@ -1,0 +1,152 @@
+<?php
+
+/**
+ * Go1Auth module.
+ */
+
+/**
+ * Get Go1Auth user role.
+ */
+function go1auth_get_role() {
+  $path = drupal_get_path('module', 'go1auth') . '/go1auth.info';
+  $info = drupal_parse_info_file($path);
+  $role = user_role_load_by_name($info['features']['user_role'][0]);
+  return $role;
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function go1auth_form_alter(&$form, &$form_state, $form_id) {
+  // Add validation for login block.
+  if ($form_id == 'user_login_block') {
+    $insert_after = 'user_login_authenticate_validate';
+    $insert_value = 'go1auth_form_validate_alter';
+    $keys = array_flip($form['#validate']);
+    if (isset($keys[$insert_after])) {
+      $index = $keys[$insert_after];
+      array_splice($form['#validate'], $index + 1, 0, $insert_value);
+    }
+  }
+
+  // Add redirect from edit-user block.
+  if ($form_id == 'user_profile_form') {
+    global $user;
+    $role = go1auth_get_role();
+    if (isset($user->roles[$role->rid])) {
+      if ($user->roles[$role->rid] == $role->name) {
+        drupal_goto('user');
+      }
+    }
+  }
+}
+
+/**
+ * Validate login form - check the Go1 if can't login.
+ */
+function go1auth_form_validate_alter($form, &$form_state) {
+  $errors = form_get_errors();
+  if ($errors === NULL) {
+    if (empty($form_state['uid'])) {
+      if (!isset($form_state['flood_control_triggered'])) {
+        // Set request to Go1 api.
+        $api_url = 'https://api.mygo1.com/v3/user-service/account/login';
+        $headers = array();
+        $data = array(
+          'accounts.gocatalyze.com' => 'accounts.gocatalyze.com',
+          'username' => $form_state['values']['name'],
+          'password' => trim($form_state['values']['pass']),
+        );
+
+        // Get the response from Go1 api.
+        $response = drupal_http_request($api_url, array(
+          'headers' => $headers,
+          'method' => 'POST',
+          'data' => json_encode($data),
+        ));
+        $data = json_decode($response->data);
+
+        // Check.
+        if ($response->code == 200) {
+          unset($form_state['flood_control_user_identifier']);
+          unset($form_state['flood_control_triggered']);
+          // Try to load user by email first.
+          if ($account = user_load_by_mail($data->mail)) {
+            $form_state['uid'] = $account->uid;
+          }
+          else {
+            // Make a new user.
+            $role = go1auth_get_role();
+            $role = array($role->rid => $role->name);
+            $new_user = array(
+              'name' => $data->mail,
+              'pass' => md5(rand()),
+              'mail' => $data->mail,
+              'signature_format' => 'full_html',
+              'status' => 1,
+              // 'language' => 'en',
+              // 'timezone' => 'Australia/Brisbane',
+              'init' => 'Email',
+              'roles' => array(
+                DRUPAL_AUTHENTICATED_RID => 'authenticated user',
+              ) + $role,
+              'field_first_name' => array(
+                LANGUAGE_NONE => array(
+                  0 => array(
+                    'value' => $data->first_name,
+                  ),
+                ),
+              ),
+              'field_last_name' => array(
+                LANGUAGE_NONE => array(
+                  0 => array(
+                    'value' => $data->last_name,
+                  ),
+                ),
+              ),
+            );
+
+            $account = user_save(NULL, $new_user);
+            $form_state['uid'] = $account->uid;
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function go1auth_block_info() {
+  $blocks = array();
+
+  $blocks['go1auth_hello'] = array(
+    'info' => t('Go1Auth Hello Block'),
+    'cache' => DRUPAL_NO_CACHE,
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function go1auth_block_view($delta = '') {
+  $block = array();
+
+  global $user;
+  if ($user->uid == 0) {
+    $block['content'] = '';
+  }
+  else {
+    $user_wrapper = entity_metadata_wrapper('user', $user);
+    $block['content'] = t('Hi !firstname !lastname [!logout]', array(
+      '!firstname' => $user_wrapper->field_first_name->value(),
+      '!lastname' => $user_wrapper->field_last_name->value(),
+      '!logout' => l(t('Log Out'), 'user/logout'),
+    ));
+  }
+
+  return $block;
+}

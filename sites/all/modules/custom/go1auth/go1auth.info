@@ -1,0 +1,14 @@
+name = Go1 Auth
+description = Authorization with Go1 account
+package = Custom
+core = 7.x
+
+dependencies[] = features
+dependencies[] = text
+
+features[features_api][] = api:2
+features[field_base][] = field_first_name
+features[field_base][] = field_last_name
+features[field_instance][] = user-user-field_first_name
+features[field_instance][] = user-user-field_last_name
+features[user_role][] = Go1 authenticated user

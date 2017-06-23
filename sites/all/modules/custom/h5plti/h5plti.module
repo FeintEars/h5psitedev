@@ -24,7 +24,7 @@ function h5plti_form_alter(&$form, &$form_state, $form_id) {
     $form['pass']['#attributes'] = array(
       'placeholder' => t('Password'),
     );
-    
+
     unset($form['links']);
   }
 }
