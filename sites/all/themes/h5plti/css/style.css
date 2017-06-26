@@ -2,8 +2,23 @@
  * General styles.
  */
 
+.section {
+  width: 90%;
+  margin: 0px auto;
+}
+
 .title, #header {
   text-align: center;
+}
+
+a#logo {
+  display: block;
+  float: left;
+}
+
+body.not-logged-in a#logo {
+  float: none;
+  padding-right: 20px;
 }
 
 a#logo:hover {

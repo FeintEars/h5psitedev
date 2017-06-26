@@ -1,0 +1,13 @@
+#block-go1auth-go1auth-hello .btn {
+  border: none;
+  background-color: transparent;
+}
+
+#block-go1auth-go1auth-hello ul:hover {
+  background-color: #eee;
+}
+
+#block-go1auth-go1auth-hello a:hover {
+  background-color: transparent;
+  border-bottom: none;
+}

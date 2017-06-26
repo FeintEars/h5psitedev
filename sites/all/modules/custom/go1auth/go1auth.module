@@ -135,18 +135,45 @@ function go1auth_block_info() {
 function go1auth_block_view($delta = '') {
   $block = array();
 
-  global $user;
-  if ($user->uid == 0) {
-    $block['content'] = '';
-  }
-  else {
-    $user_wrapper = entity_metadata_wrapper('user', $user);
-    $block['content'] = t('Hi !firstname !lastname [!logout]', array(
-      '!firstname' => $user_wrapper->field_first_name->value(),
-      '!lastname' => $user_wrapper->field_last_name->value(),
-      '!logout' => l(t('Log Out'), 'user/logout'),
-    ));
+  if ($delta == 'go1auth_hello') {
+    global $user;
+    if ($user->uid == 0) {
+      $block['content'] = '';
+    }
+    else {
+      $path = drupal_get_path('module', 'go1auth');
+      drupal_add_css($path . '/css/go1auth.css');
+      $user_wrapper = entity_metadata_wrapper('user', $user);
+      $block['content'] = theme('go1auth_hello', array(
+        'user' => $user,
+        'user_wrapper' => $user_wrapper,
+        'firstname' => $user_wrapper->field_first_name->value(),
+        'lastname' => $user_wrapper->field_last_name->value(),
+        'logout' => l(t('Log Out'), 'user/logout'),
+      ));
+    }
   }
 
   return $block;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function go1auth_theme() {
+  $items = array();
+
+  $items['go1auth_hello'] = array(
+    'variables' => array(
+      'user' => NULL,
+      'user_wrapper' => NULL,
+      'firstname' => NULL,
+      'lastname' => NULL,
+      'logout' => NULL,
+    ),
+    'template' => 'go1auth_hello',
+    'path' => drupal_get_path('module', 'go1auth') . '/templates',
+  );
+
+  return $items;
 }
