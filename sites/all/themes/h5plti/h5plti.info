@@ -3,6 +3,8 @@ description = H5P + LTI project
 package = Custom
 core = 7.x
 
+base theme = bootstrap
+
 stylesheets[all][] = css/styleguide.css
 stylesheets[all][] = css/style.css
 
