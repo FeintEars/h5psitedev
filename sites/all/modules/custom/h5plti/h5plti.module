@@ -27,4 +27,41 @@ function h5plti_form_alter(&$form, &$form_state, $form_id) {
 
     unset($form['links']);
   }
+
+  if ($form_id == 'h5p_content_node_form') {
+    // $form['#attached']['css'][] = drupal_get_path('module', 'h5plti') . '/css/h5peditor.css';
+  }
+}
+
+/**
+ * Implements hook_h5p_styles_alter().
+ */
+function h5plti_h5p_styles_alter(&$styles, $libraries, $mode) {
+  /*$styles[] = (object) array(
+    'path' => drupal_get_path('module', 'h5plti') . '/css/h5peditor.css',
+    'version' => '?ver=1',
+  );*/
+}
+
+/**
+ * Implements hook_h5p_scripts_alter().
+ */
+function h5plti_h5p_scripts_alter(&$scripts, $libraries, $mode) {
+  /*$scripts[] = (object) array(
+    'path' => drupal_get_path('module', 'h5plti') . '/js/h5peditor.js',
+    'version' => '?ver=1',
+  );*/
+}
+
+/**
+ * Implements hook_js_alter().
+ */
+function h5plti_js_alter(&$js) {
+  foreach ($js['settings']['data'] as $k => $v) {
+    if (isset($v['h5peditor'])) {
+      global $base_path;
+      $path = drupal_get_path('module', 'h5plti');
+      $js['settings']['data'][$k]['h5peditor']['assets']['js'][] =  $base_path . $path . '/js/h5peditor.js';
+    }
+  }
 }

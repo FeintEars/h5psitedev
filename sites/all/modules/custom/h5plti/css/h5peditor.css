@@ -1,0 +1,9 @@
+.h5p-interactivevideo-editor .h5p-hub.h5p-sdk,
+.h5p-interactivevideo-editor .h5p-tutorial-url,
+.h5p-interactivevideo-editor .h5p-example-url {
+  display: none;
+}
+
+form.node-form #edit-h5p-editor label.control-label {
+  display: none;
+}
