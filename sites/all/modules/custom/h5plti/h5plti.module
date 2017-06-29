@@ -29,7 +29,7 @@ function h5plti_form_alter(&$form, &$form_state, $form_id) {
   }
 
   if ($form_id == 'h5p_content_node_form') {
-    // $form['#attached']['css'][] = drupal_get_path('module', 'h5plti') . '/css/h5peditor.css';
+    $form['#attached']['css'][] = drupal_get_path('module', 'h5plti') . '/css/h5peditor.css';
   }
 }
 
