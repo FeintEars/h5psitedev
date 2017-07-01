@@ -50,9 +50,9 @@ function h5plti_content_views_query_alter(&$view, &$query) {
 function h5plti_content_permission() {
   $items = array();
 
-  $items['view my list with h5p videos'] = array(
-    'title' => t('View my list with h5p videos'),
-    'description' => t('View the block with list of my h5p videos'),
+  $items['view h5p videos'] = array(
+    'title' => t('View h5p videos'),
+    'description' => t('View the block with list of h5p videos'),
   );
 
   $items['add h5p video'] = array(
