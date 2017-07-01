@@ -37,7 +37,7 @@ a#logo:hover {
 
 #block-user-login {
   width: 300px;
-  float: right;
+  clear: both;
 }
 
 .block-title {
