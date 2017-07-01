@@ -28,7 +28,7 @@ function h5plti_content_views_default_views() {
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
-  $handler->display->display_options['pager']['type'] = 'full';
+  $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
     'title' => 'title',
@@ -146,6 +146,9 @@ function h5plti_content_views_default_views() {
 
   /* Display: My H5P videos */
   $handler = $view->new_display('block', 'My H5P videos', 'my_h5p_videos_block');
+  $handler->display->display_options['defaults']['pager'] = FALSE;
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
 
   /* Display: All H5P Videos */
   $handler = $view->new_display('block', 'All H5P Videos', 'all_h5p_videos_block');
@@ -162,20 +165,16 @@ function h5plti_content_views_default_views() {
   $handler->display->display_options['fields']['nid']['node_in_colorbox_width'] = '600';
   $handler->display->display_options['fields']['nid']['node_in_colorbox_height'] = '600';
   $handler->display->display_options['fields']['nid']['node_in_colorbox_rel'] = '';
-  /* Field: Content: Title */
-  $handler->display->display_options['fields']['title']['id'] = 'title';
-  $handler->display->display_options['fields']['title']['table'] = 'node';
-  $handler->display->display_options['fields']['title']['field'] = 'title';
-  $handler->display->display_options['fields']['title']['label'] = '';
-  $handler->display->display_options['fields']['title']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['title']['alter']['text'] = '<a href="/h5p/embed/[nid]?width=550&height=380&iframe=true" class="colorbox-load">[title]</a>';
-  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
-  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
-  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['title']['link_to_node'] = FALSE;
-  $handler->display->display_options['fields']['title']['node_in_colorbox_width'] = '600';
-  $handler->display->display_options['fields']['title']['node_in_colorbox_height'] = '600';
-  $handler->display->display_options['fields']['title']['node_in_colorbox_rel'] = '';
+  /* Field: Content: Rendered Node */
+  $handler->display->display_options['fields']['rendered_entity']['id'] = 'rendered_entity';
+  $handler->display->display_options['fields']['rendered_entity']['table'] = 'views_entity_node';
+  $handler->display->display_options['fields']['rendered_entity']['field'] = 'rendered_entity';
+  $handler->display->display_options['fields']['rendered_entity']['label'] = '';
+  $handler->display->display_options['fields']['rendered_entity']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['rendered_entity']['link_to_entity'] = 1;
+  $handler->display->display_options['fields']['rendered_entity']['display'] = 'view';
+  $handler->display->display_options['fields']['rendered_entity']['view_mode'] = 'teaser';
+  $handler->display->display_options['fields']['rendered_entity']['bypass_access'] = 1;
   /* Field: Global: Custom text */
   $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
@@ -184,6 +183,41 @@ function h5plti_content_views_default_views() {
   $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/h5p-video/[nid]/credentials?width=400&height=120&iframe=true" class="colorbox-load" class="fa-btn"><i class="fa fa-key" aria-hidden="true"></i></a>';
   $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
   $handler->display->display_options['defaults']['arguments'] = FALSE;
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'h5p_content' => 'h5p_content',
+  );
+  /* Filter criterion: Content: H5P video only (field_h5p_video_only) */
+  $handler->display->display_options['filters']['field_h5p_video_only_value']['id'] = 'field_h5p_video_only_value';
+  $handler->display->display_options['filters']['field_h5p_video_only_value']['table'] = 'field_data_field_h5p_video_only';
+  $handler->display->display_options['filters']['field_h5p_video_only_value']['field'] = 'field_h5p_video_only_value';
+  $handler->display->display_options['filters']['field_h5p_video_only_value']['value'] = array(
+    1 => '1',
+  );
+  /* Filter criterion: H5P: Content ID */
+  $handler->display->display_options['filters']['content_id']['id'] = 'content_id';
+  $handler->display->display_options['filters']['content_id']['table'] = 'h5p_nodes';
+  $handler->display->display_options['filters']['content_id']['field'] = 'content_id';
+  $handler->display->display_options['filters']['content_id']['operator'] = '!=';
+  $handler->display->display_options['filters']['content_id']['value']['value'] = '0';
+  /* Filter criterion: Content: Title */
+  $handler->display->display_options['filters']['title']['id'] = 'title';
+  $handler->display->display_options['filters']['title']['table'] = 'node';
+  $handler->display->display_options['filters']['title']['field'] = 'title';
+  $handler->display->display_options['filters']['title']['operator'] = '!=';
+  $handler->display->display_options['filters']['title']['value'] = 'New H5P video';
 
   $export['h5p_videos'] = $view;
   return $export;
