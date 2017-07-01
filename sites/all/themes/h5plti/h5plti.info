@@ -12,6 +12,5 @@ scripts[] = js/script.js
 
 regions[header] = Header
 regions[help] = Help
-regions[front_content] = Front Content
 regions[content] = Content
 regions[footer] = Footer

@@ -5,15 +5,6 @@
  */
 
 /**
- * Implements hook_page_build().
- */
-function h5plti_page_build(&$page) {
-  if (drupal_is_front_page()) {
-    drupal_set_title(t('H5P Videos'));
-  }
-}
-
-/**
  * Implements hook_form_alter().
  */
 function h5plti_form_alter(&$form, &$form_state, $form_id) {

@@ -35,14 +35,22 @@ a#logo:hover {
   text-align: center;
 }
 
+#block-user-login {
+  width: 300px;
+  float: right;
+}
+
+.block-title {
+  text-align: center;
+}
+
+.view-h5p-videos a.standard-btn {
+  margin-bottom: 20px;
+}
+
 /**
  * FrontPage.
  */
-
-body.front .region-front-content {
-  width: 350px;
-  margin: 0px auto;
-}
 
 body.front #block-user-login h2 {
   display: none;
@@ -50,4 +58,8 @@ body.front #block-user-login h2 {
 
 body.front input[type="submit"] {
   margin: 20px 20px 20px 10px;
+}
+
+body.front.logged-in .tabs {
+  display: none;
 }
