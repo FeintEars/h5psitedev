@@ -31,6 +31,14 @@ a#logo:hover {
   padding: 0px 25px;
 }
 
+.block-title {
+  text-align: center;
+}
+
+/**
+ * Login and register blocks.
+ */
+
 #block-go1auth-go1auth-hello .content {
   text-align: center;
 }
@@ -40,12 +48,21 @@ a#logo:hover {
   clear: both;
 }
 
-.block-title {
-  text-align: center;
+/**
+ * h5p_videos view.
+ */
+
+.view-h5p-videos.view-display-id-my_h5p_videos_block a.standard-btn {
+  margin-bottom: 20px;
 }
 
-.view-h5p-videos a.standard-btn {
-  margin-bottom: 20px;
+.view-h5p-videos.view-display-id-all_h5p_videos_block .views-field-rendered-entity {
+  width: 100%;
+}
+
+.view-h5p-videos.view-display-id-all_h5p_videos_block .node-h5p-content header,
+.view-h5p-videos.view-display-id-all_h5p_videos_block .node-h5p-content footer {
+  display: none;
 }
 
 /**

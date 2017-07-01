@@ -120,8 +120,7 @@ function h5plti_content_menu() {
     'type' => MENU_NORMAL_ITEM,
     'page callback' => 'h5plti_h5p_credentials',
     'page arguments' => array(1),
-    'access callback' => 'h5plti_content_menu_access_edit',
-    'access arguments' => array(1),
+    'access arguments' => array('view h5p videos'),
     'file' => 'h5plti_content.credentials.inc',
     'file path' => $path,
   );
