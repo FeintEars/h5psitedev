@@ -2,7 +2,7 @@
   <div class="buttons pull-right">
     <button data-toggle="collapse" data-target="#<?php print $block_html_id; ?>"><?php print t('Log in'); ?></button>
     <?php print t('Or'); ?>
-    <button data-toggle="collapse" data-target="#<?php print $block_html_id; ?>-new"><?php print t('Sign in'); ?></button>
+    <button data-toggle="collapse" data-target="#<?php print $block_html_id; ?>-new"><?php print t('Sign up'); ?></button>
   </div>
 
   <div class="forms-container">
