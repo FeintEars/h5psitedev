@@ -11,19 +11,28 @@
   text-align: center;
 }
 
-a#logo {
+a:hover {
+  border-bottom: none;
+}
+
+a:focus, .nav > li > a:hover, .nav > li > a:focus {
+  background-color: transparent;
+  outline: none;
+}
+
+a.logo {
   display: block;
   float: left;
   position: absolute;
   z-index: 1;
 }
 
-body.not-logged-in a#logo {
+body.not-logged-in a.logo {
   float: none;
   padding-right: 20px;
 }
 
-a#logo:hover {
+a.logo:hover {
   border-bottom: none;
 }
 
@@ -33,6 +42,13 @@ a#logo:hover {
 
 .block-title {
   text-align: center;
+}
+
+.br-line {
+  height: 1px;
+  position: relative;
+  background-color: #505a5c;
+  margin: 10px 0px;
 }
 
 /**
@@ -79,4 +95,43 @@ body.front input[type="submit"] {
 
 body.front.logged-in .tabs {
   display: none;
+}
+
+/**
+ * Footer.
+ */
+
+.footer {
+  background-color: #000;
+  color: #fff;
+}
+
+.footer h3 {
+  margin-bottom: 0px;
+}
+
+.footer .menu li {
+  display: inline-block;
+  padding-right: 10px;
+}
+
+.footer .menu li a {
+  display: inline-block;
+  padding: 0px;
+}
+
+.footer .menu li a:hover {
+  background-color:  transparent;
+  border-bottom: none;
+}
+
+.footer .socialConnect .menu {
+  font-size: 22px;
+  line-height: 38px;
+  float: left;
+  margin-left: 20px;
+}
+
+.footer .footerBottom {
+  margin-top: 23px;
 }

@@ -3,7 +3,7 @@
     <div id="header"><div class="section clearfix">
 
       <?php if ($logo): ?>
-        <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" id="logo">
+        <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" class="logo">
           <img src="<?php print $logo; ?>" alt="<?php print t('Home'); ?>" />
         </a>
       <?php endif; ?>
@@ -34,8 +34,34 @@
 
     </div></div> <!-- /#main, /#main-wrapper -->
 
-    <div id="footer"><div class="section">
-      <?php print render($page['footer']); ?>
-    </div></div> <!-- /.section, /#footer -->
+    <div id="footer" class="footer">
+      <div class="section">
+        <div class="footerTop row">
+          <div class="socialConnect col-xs-7">
+            <h3 class="pull-left"><?php print t('Follow us on'); ?></h3>
+            <?php print drupal_render($footer_menu); ?>
+          </div>
+        </div>
+        <div class="br-line col-md-12"></div>
+        <div class="footerMiddle row">
+          <div class="col-md-1 col-xs-3">
+            <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" class="logo"><img src="<?php print $base_path . drupal_get_path('theme', $GLOBALS['theme']); ?>/images/logo_footer.png" alt="GO1 logo"></a>
+          </div>
+          <div class="tagline col-md-5 col-xs-9">
+            <?php print render($page['footer']); ?>
+          </div>
+        </div>
+        <div class="br-line col-md-12"></div>
+        <div class="footerBottom row">
+          <div class="footerLinks col-sm-6">
+            <?php print drupal_render($footer_menu2); ?>
+          </div>
+          <div class="copyright text-right col-sm-6">
+            <i class="fa fa-copyright"></i> Copyright
+            <span class="ng-binding">2017</span> GO1 - All Rights Reserved
+          </div>
+        </div>
+      </div>
+    </div>
 
   </div></div> <!-- /#page, /#page-wrapper -->
