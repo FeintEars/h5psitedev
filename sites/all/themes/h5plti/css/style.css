@@ -52,16 +52,40 @@ a.logo:hover {
 }
 
 /**
- * Login and register blocks.
+ * Header.
  */
 
 #block-go1auth-go1auth-hello .content {
   text-align: center;
 }
 
-#block-user-login {
+#block-user-login, #block-user-login-new {
   width: 300px;
   clear: both;
+  margin: 10px 0px 12px;
+}
+
+.region-header .buttons {
+  position: relative;
+}
+
+.region-header .buttons button {
+  border: none;
+  background-color: transparent;
+  font-weight: bold;
+}
+
+.region-header .buttons button:focus {
+  outline: none;
+}
+
+.region-header .forms-container {
+  position: absolute;
+  top: 30px;
+  right: 5px;
+  background-color: #fff;
+  border: 1px solid #eee;
+  padding: 0px 5px;
 }
 
 /**

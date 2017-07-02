@@ -58,7 +58,7 @@
           </div>
           <div class="copyright text-right col-sm-6">
             <i class="fa fa-copyright"></i> Copyright
-            <span class="ng-binding">2017</span> GO1 - All Rights Reserved
+            <span class="ng-binding"><?php print date('Y'); ?></span> GO1 - All Rights Reserved
           </div>
         </div>
       </div>

@@ -177,3 +177,14 @@ function go1auth_theme() {
 
   return $items;
 }
+
+/**
+ * Register to Go1 API form.
+ */
+function go1auth_register_form($form, $form_state) {
+  $form['temp'] = array(
+    '#markup' => t('Coming soon...'),
+  );
+
+  return $form;
+}
